@@ -1,0 +1,162 @@
+練習問題3．1
+この節で紹介したスクリプトで最後の行を最初に持ってきたスクリプトに
+変更して実行してみる。どのようなメッセージがでるか？
+
+スクリプト：
+	repeat_lyricx()
+	def print_lyricx():
+	    print "I'm lumberjack, and I'm okay."
+	    print "I sleep all night and I work all day."
+	def repeat_lyricx():
+		print_lyricx()
+		print_lyricx()
+
+実行結果：
+	C:\Anaconda>python ex31.py
+	Traceback (most recent call last):
+	  File "ex31.py", line 1, in <module>
+	    repeat_lyricx()
+	NameError: name 'repeat_lyricx' is not defined
+
+
+練習問題3．2
+同様に関数定義のrepeat_lyrics をprint_lyrics の前で行うように
+スクリプトを変更し、実行してみる。何が起こるか？
+
+スクリプト：
+	def repeat_lyricx():
+		print_lyricx()
+		print_lyricx()
+	def print_lyricx():
+	    print "I'm lumberjack, and I'm okay."
+	    print "I sleep all night and I work all day."
+	repeat_lyricx()
+
+実行結果：
+	C:\Anaconda>python ex32.py
+	I'm lumberjack, and I'm okay.
+	I sleep all night and I work all day.
+	I'm lumberjack, and I'm okay.
+	I sleep all night and I work all day.
+
+
+練習問題3．3
+Python は文字列の長さを返す組み込み関数len 、例えば len('allen') は 5 を返す、を提供している。
+文字列の表示で、文字列の最後の文字が 70 桁にくるような right_justify 関数を作成せよ。
+
+①	def right_justify(allen):
+	...　print "%70s" % allen
+	...
+	right_justify('allen')
+	                                                                 allen
+
+②	def right_justify():
+	... print "allen".rjust(70)
+
+	right_justify()
+	                                                                 allen
+
+
+練習問題3．4
+関数オブジェクト自体も関数の引数とすることができる。
+例えば、do_twice関数は関数オブジェクトを引数として受け取りその関数を二度実行する、つまり
+	def do_twice(f):
+	    f()
+	    f()
+さて、do_twice が以下の関数print_spam を引数とする使用例をみてみよう：
+	def print_spam():
+	    print 'spam'
+	
+	do_twice(print_spam)
+この関数を以下の順序を踏んで変更せよ：
+1．上記のプログラムをスクリプトとして書き、実行せよ。
+
+スクリプト：
+	def do_twice(f):
+	    f()
+	    f()
+	def print_spam():
+	    print 'spam'
+	do_twice(print_spam)
+
+実行結果：
+	C:\Anaconda>python ex34.py
+	spam
+	spam
+
+2．引数を二つ持つように do_twice を変更せよ。
+一つの引数は関数オブジェクトであり、他はこの関数が受け取る引数の値である。
+
+スクリプト：
+	def do_twice(f,g):
+	    f(g)
+	    f(g)
+	def print_spam(g):
+	    print g
+	g = 'baka'
+	do_twice(print_spam,g)
+	
+実行結果：
+	C:\Anaconda>python ex34.py
+	baka
+	baka
+
+
+3．print_spam をより一般的な関数print_twice に変更せよ。
+この新しい関数は引数を一つ持ち、それを二回表示する。
+
+スクリプト：
+	def do_twice(f,g):
+	    f(g)
+	    f(g)
+	def print_twice(g):
+	    print g
+	    print g
+	g = 'baka'
+	do_twice(print_twice,g)
+	
+
+実行結果：
+	C:\Anaconda>python ex34.py
+	baka
+	baka
+	baka
+	baka
+
+4．新しい関数 do_four を作成せよ。
+この関数は関数オブジェクトを引数の一つとし、他の引数はこの関数が引数として受け取る値である。
+この新しい関数は引数として受け取った関数を四回実行する。
+この新しい関数の本体は二つの文で書ける。四つではないよ。
+
+スクリプト：
+	def do_twice(f,g):
+	    f(g)
+	    f(g)
+	    
+	def print_twice(g):
+	    print g
+	    print g
+	    
+	g = 'baka'
+
+	do_twice(print_twice,g)
+
+	def do_four(f,g):
+	    do_twice(f,g)
+	    do_twice(f,g)
+
+	do_four(print_twice,g)
+
+実行結果：
+	C:\Anaconda>python ex34.py
+	baka
+	baka
+	baka
+	baka
+	baka
+	baka
+	baka
+	baka
+
+5．
+１．以下のような格子を描く関数を作成せよ。
