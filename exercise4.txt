@@ -1,0 +1,290 @@
+4.3 練習問題
+以下は TurtleWorld を使った練習問題のシリーズである。
+それらは面白いものであるが、学習のポイントも含まれている。
+作業をしながらその学習ポイントにも目を向けてほしい。
+
+
+１．square という関数を作成せよ。仮引数としてturtle であるt を持つ。
+このturtle で正方形を描くようにせよ。そしてこの関数でbob を引数として
+受け取り関数呼び出しを書き実行せよ。
+
+	from swampy.TurtleWorld import *
+
+	world = TurtleWorld()
+	bob = Turtle()
+
+	def square(t):
+		for i in range(4):
+			fd(t , 100)
+			lt(t)
+			
+	square(bob)
+
+
+２． length という別な仮引数を追加せよ。関数のボディを変更してlength を
+一辺の長さにするように変更し、関数呼び出しに第二の引数を持つように変更せよ。
+適当な長さのlength を与え実行してみよう。
+
+	from swampy.TurtleWorld import *
+
+	world = TurtleWorld()
+	bob = Turtle()
+
+	def square(t, lenght):
+		for i in range(4):
+			fd(t, lenght)
+			lt(t)
+			
+	square(bob, 200)
+
+
+３． 関数 lt の回転角度の既定値は90 である。しかし、lt(bob, 45)のように角度を
+与えることもできる。
+そこで square をコピーして名前をpolygon とする。この関数は第二の仮引数n
+を持ち、ボディをn 個の辺を持つ正多角形を描くように変更せよ。
+ヒント：n 個の辺を持つ正多角形の外角は360/n である。
+
+	from swampy.TurtleWorld import *
+
+	world = TurtleWorld()
+	bob = Turtle()
+
+	def polygon(t, lenght, n):
+		angle = 360 / n
+		for i in range(n):
+			fd(t, lenght)
+			lt(t, angle)
+			
+	polygon(bob, 100, 5)
+
+
+４． circle 関数を作成せよ。この関数はpolygon 関数から派生し、仮引数として
+turtle を値に持つt と、半径r を持ち、近似的に円を描く関数である。
+ヒント：円周は近似的に正 n 辺多角形で近似すると、円周 = length * n で表
+現できる。ここでlength は多角形の一辺の長さである。
+もう一つヒント：描画速度が余りのも遅いときは、bob,delay = 0.01 とすると
+よい。
+
+	from swampy.TurtleWorld import *
+
+	world = TurtleWorld()
+	bob = Turtle()
+	bob.delay = 0.1
+	
+	import math
+
+	def polygon(t, lenght, n):
+		angle = 360 / n
+		for i in range(n):
+			fd(t, lenght)
+			lt(t, angle)
+
+	def circle(t, r):
+		enshu = 2 * r * math.pi		#enshuは円周の長さ，rは半径
+import math
+
+def polygon(t, lenght, n):
+	angle = 360 / n
+	for i in range(n):
+		fd(t, lenght)
+		lt(t, angle)
+
+def circle(t, r):
+	enshu = 2 * r * math.pi		#enshuは円周の長さ，rは半径
+#	n = 50						#nは正 n 辺多角形
+	n = int(enshu / 3) + 1
+	lenght = enshu / n			#length は多角形の一辺の長さ
+	polygon(t, lenght, n)
+
+circle(bob, 20)
+		n = int(enshu / 3) + 1
+		lenght = enshu / n			#length は多角形の一辺の長さ
+		polygon(t, lenght, n)
+
+	circle(bob, 20)
+
+
+５． 更に一般的な関数 arc 関数を作成せよ。この関数は追加の仮引数としてangle を
+持つ。描画はこのangle を角度とする孤を描くことにある。angle = 360 で完全な円を描くことになる。
+
+	import math
+
+	def polyline(t, n, lenght, angle):
+		for i in range(n):
+			fd(t, lenght)
+			lt(t, angle)
+	'''
+	def polygon(t, n, lenght):
+		angle = 360.0 / n
+		polyline(t, n, lenght, angle)
+	'''
+	def arc(t, r, angle):
+		arc_lenght  = 2 * r * math.pi * angle / 360
+		n = int(arc_lenght / 3) + 1
+		step_lenght = arc_lenght / n
+		step_angle = float(angle) / n
+		'''
+		for i in range(n):
+			fd(t, step_lenght)
+			lt(t, step_angle)
+		'''
+		polyline(t, n, step_lenght, step_angle)
+		
+	arc(bob, 50, 60)
+
+
+
+4.12 練習問題
+練習問題 4.1 http://thinkpyhton.com/code/polygon.py をダウンロードし以下
+の課題を行え。
+
+
+"""This module contains code from
+Think Python by Allen B. Downey
+http://thinkpython.com
+
+Copyright 2012 Allen B. Downey
+License: GNU GPLv3 http://www.gnu.org/licenses/gpl.html
+
+"""
+
+import math
+
+try:
+    # see if Swampy is installed as a package
+    from swampy.TurtleWorld import *
+except ImportError:
+    # otherwise see if the modules are on the PYTHONPATH
+    from TurtleWorld import *
+
+
+def square(t, length):
+    """Draws a square with sides of the given length.
+
+    Returns the Turtle to the starting position and location.
+    """
+    for i in range(4):
+        fd(t, length)
+        lt(t)
+
+
+def polyline(t, n, length, angle):
+    """Draws n line segments.
+
+    t: Turtle object
+    n: number of line segments
+    length: length of each segment
+    angle: degrees between segments
+    """
+    for i in range(n):
+        fd(t, length)
+        lt(t, angle)
+
+
+def polygon(t, n, length):
+    """Draws a polygon with n sides.
+
+    t: Turtle
+    n: number of sides
+    length: length of each side.
+    """
+    angle = 360.0/n
+    polyline(t, n, length, angle)
+
+
+def arc(t, r, angle):
+    """Draws an arc with the given radius and angle.
+
+    t: Turtle
+    r: radius
+    angle: angle subtended by the arc, in degrees
+    """
+    arc_length = 2 * math.pi * r * abs(angle) / 360
+    n = int(arc_length / 4) + 1
+    step_length = arc_length / n
+    step_angle = float(angle) / n
+
+    # making a slight left turn before starting reduces
+    # the error caused by the linear approximation of the arc
+    lt(t, step_angle/2)
+    polyline(t, n, step_length, step_angle)
+    rt(t, step_angle/2)
+
+
+def circle(t, r):
+    """Draws a circle with the given radius.
+
+    t: Turtle
+    r: radius
+    """
+    arc(t, r, 360)
+
+
+# the following condition checks whether we are
+# running as a script, in which case run the test code,
+# or being imported, in which case don't.
+
+if __name__ == '__main__':
+    world = TurtleWorld()    
+
+    bob = Turtle()
+    bob.delay = 0.001
+
+    # draw a circle centered on the origin
+    radius = 100
+    pu(bob)
+    fd(bob, radius)
+    lt(bob)
+    pd(bob)
+    circle(bob, radius)
+
+    wait_for_user()
+
+
+１．関数 polygon と関数circle にドキュメント文字列を追加せよ。
+
+	def polygon(t, n, length):
+		"""
+		与えられた長さ（lenght）を持つn 個の線分を関数polyline を呼び出して描画する．
+		t はturtle である。
+		"""
+	    """Draws a polygon with n sides.
+
+	    t: Turtle
+	    n: number of sides
+	    length: length of each side.
+	    """
+	    angle = 360.0/n
+	    polyline(t, n, length, angle)
+
+	def circle(t, r):
+		"""
+		与えられた半径（r）の円を関数arc を呼び出して描画する．
+		"""
+	    """Draws a circle with the given radius.
+
+	    t: Turtle
+	    r: radius
+	    """
+	    arc(t, r, 360)
+
+２．関数 circle(bob, radius)の実行に伴うスタック図を作成せよ。手書きでもよいし、
+コードにprint 文で追加してもよい。
+３．4.7 節の関数arc は、円の描画が常に想定した円の外側に沿った線分で近似されてい
+るので正確さに欠けるところがある。その結果turtle が停止した位置は正しい位置
+から僅かにずれる。わたしの解答例ではこの誤差を減ずる工夫がされている。コード
+を読んで納得できるがみよ。
+
+
+練習問題4.2 図4.1 のような描画に対応する関数の典型的なセットを作成せよ。
+練習問題4.3 図4.2 のような描画に対応する関数の典型的なセットを作成せよ。
+練習問題4.4 アルファベットの文字は適当な数の基本要素、つまり横線、縦線、いくつ
+かの曲線から生成できる。フォントをこのような要素から作れるようデザインせよ。そし
+て、アルファベットを描画する関数を作成せよ。
+先ず、各一文字を描画する関数を生成する。つまり、draw_a、draw_b といった具合で
+ある。これらを纏めてletters.py というファイルにする。あなたの制作した関数をテス
+トするために、”turtle typewriter”というモジュールをhttp://thinkpython/co
+de/typewriter.py からダウンロードせよ。
+練習問題 4.5 渦巻について、http://en.wikipedia.org/wiki/Spiral（訳注：日
+本語ではhttp://ja.wikipedia.org/wiki/渦巻）の記事をよみ、アルキメデスの渦巻
+（または、類似の渦巻）を描画するプログラムを作成せよ。
