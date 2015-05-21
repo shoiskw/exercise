@@ -12,3 +12,5 @@ def f() :
 	print 'aaa'
 	
 do_n(f, 5)
+
+‚ ‚Í‚Í‚Ì‚Í
