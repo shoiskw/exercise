@@ -1,0 +1,43 @@
+練習問題7.1 
+関数print_nを再帰でなく、繰り返し処理をするプログラムに書き換えよ。
+
+	def print_n(s,n):
+		if n <= 0:
+			return
+		while n != 0:
+			print s
+			n = n - 1
+
+	print_n("sho", 5)
+	
+	実行結果：
+	sho
+	sho
+	sho
+	sho
+	sho
+	
+
+
+練習問題 7.2 
+以上の議論を基に関数square_root を作成せよ。この関数は仮引数として正の数a を持ち、この平方根を求める機能を持つ。平方根はこの関数の戻り値とする。
+
+	def square_root(a) :
+		x = a - 1.0
+		epsilon = 0.0000001
+		while True:
+			print x 
+			y = (x +  a/x) / 2
+			if abs(y-x) < epsilon :
+				break
+			x = y
+		print y
+		return y
+		
+	実行結果：
+	3.0
+	2.16666666667
+	2.00641025641
+	2.00001024003
+	2.00000000003
+	2.0
