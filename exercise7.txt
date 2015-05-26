@@ -2,10 +2,8 @@
 関数print_nを再帰でなく、繰り返し処理をするプログラムに書き換えよ。
 
 	def print_n(s,n):
-		if n <= 0:
-			return
-		while n != 0:
-			print s
+		 while n > 0 :
+		 	print s
 			n = n - 1
 
 	print_n("sho", 5)
