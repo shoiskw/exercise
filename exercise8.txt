@@ -1,0 +1,82 @@
+#8.1 文字列を引数として受け取り逆順で文字を表示する関数を作れ。
+	def index_back(n) :
+		index = len(n)
+		while index > 0 :
+			letter = n[index - 1]
+			print letter 
+			index = index - 1 
+				
+	index_back('fruit')
+		
+	実行結果：
+	t
+	i
+	u
+	r
+	f
+
+
+#8.2 プログラムを修正してこの間違いが出ないようにせよ。
+	prefixes = 'JKLMNOPQ'
+	suffix = 'ack'
+
+	for letter in prefixes :
+		if letter == 'O' or letter == 'Q' :
+			print letter + 'u' + suffix
+		else :
+			print letter + suffix
+			
+	実行結果：
+	Jack
+	Kack
+	Lack
+	Mack
+	Nack
+	Ouack
+	Pack
+	Quack
+
+
+#8.3 fruit が与えられた文字列として、fruit[:]は何を意味するか？
+#先頭の文字から文字列の最後までを意味する。
+
+
+#練習問題 8.4 関数find を第三の仮引数を持つように修正せよ。この第三仮引数は探索を始めるインデックスの値である。
+	def find(word, letter, index):
+		while index < len(word):
+			if word[index] == letter:
+				return index
+			index = index + 1
+		return -1
+
+
+#練習問題 8.5 上のプログラムをカプセル化して関数count を作成せよ。この関数は仮引数として文字列と文字を持つものとする。
+	def count(word, letter) :
+		index = 0
+		for i in word :
+			if i == letter :
+				index = index + 1
+		print index
+
+	count('banana', 'n')
+	
+	実行結果：
+	2
+
+
+#練習問題 8.6 関数countを前節の第三の仮引数を持つfind関数を使うように修正せよ。
+	def count(word,letter) :
+		index = 0
+		print find(word, letter, index)
+		
+	count('banana', 'n')
+
+	実行結果：
+	2
+
+
+#練習問題 8.7 前節に作成したcount と類似した機能を持つメソッドcount がある。このメソッドのドキュメントをよく読み、文字列'banana'に対して発動させ文字列に含まれる'a'の個数を表示せよ。
+
+
+#練習問題 8.9 この図を紙に書いて繰り返し毎にインデックスi、j がどのような値をもつ
+のか調べ、関数is_reverse が持つ第二のエラーを修正せよ。
